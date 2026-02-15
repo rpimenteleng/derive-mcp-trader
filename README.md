@@ -37,7 +37,9 @@ This prints a private key and address. **Save the private key** — you'll need 
 1. Go to [app.derive.xyz](https://app.derive.xyz)
 2. Navigate to: **Home → Developers → Session Keys**
 3. Register the **address** from step 2 as a new session key
-4. Note your **Derive Wallet** address and **Subaccount ID** from the Developers page
+4. On the same Developers page, note the following values:
+   - **`DERIVE_WALLET_ADDRESS`** — the address shown under **"Wallet"** (this is your Derive smart contract wallet, **not** the Signer/EOA address)
+   - **`DERIVE_SUBACCOUNT_ID`** — your subaccount ID
 
 ### 4. Save Credentials
 
