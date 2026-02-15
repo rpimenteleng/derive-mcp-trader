@@ -294,7 +294,7 @@ class DeriveClient:
                     asset_address=ticker.get("base_asset_address"),
                     sub_id=int(ticker.get("base_asset_sub_id", 0)),
                     limit_price=params.limit_price,
-                    amount=params.amount if params.side == "buy" else -params.amount,
+                    amount=params.amount,
                     max_fee=Decimal("1000"),  # Max fee willing to pay
                     recipient_id=self.subaccount_id,
                     is_bid=params.side == "buy",
@@ -307,6 +307,8 @@ class DeriveClient:
             action.sign(self.signer.key)
             
             # Submit order — merge the signed action fields into the order payload
+            # action.to_json() provides the signed fields (nonce, signature, etc.)
+            # We override amount to ensure it's positive (API uses direction field for side)
             order_payload = {
                 "instrument_name": params.instrument_name,
                 "direction": params.side,
@@ -316,6 +318,7 @@ class DeriveClient:
                 "reduce_only": params.reduce_only,
                 "post_only": params.post_only,
                 **action.to_json(),
+                "amount": str(params.amount),
             }
             
             response = self._post("/private/order", order_payload)

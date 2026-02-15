@@ -51,6 +51,7 @@ This prompts for your session key, wallet address, and subaccount ID via hidden 
 
 ### 5. Run the MCP Server
 
+
 ```bash
 source .venv/bin/activate
 python server.py
